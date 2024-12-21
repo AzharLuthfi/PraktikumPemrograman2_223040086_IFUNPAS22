@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.AbsensiMapper">
+    <resultMap id="AbsensiResult" type="model.Absensi">
+        <id property="idMahasiswa" column="id_mahasiswa" />
+        <result property="namaMahasiswa" column="nama_mahasiswa" />
+        <result property="kelas" column="kelas" />
+        <result property="tanggalAbsen" column="tanggal_absen" />
+        <result property="statusKehadiran" column="status_kehadiran" />
+    </resultMap>
+
+    <select id="ambilSemuaAbsensi" resultMap="AbsensiResult">
+        SELECT * FROM absensi_mahasiswa
+    </select>
+
+    <insert id="tambahAbsensi" parameterType="model.Absensi">
+        INSERT INTO absensi_mahasiswa (nama_mahasiswa, kelas, tanggal_absen, status_kehadiran)
+        VALUES (#{namaMahasiswa}, #{kelas}, #{tanggalAbsen}, #{statusKehadiran})
+    </insert>
+
+    <update id="updateAbsensi" parameterType="model.Absensi">
+        UPDATE absensi_mahasiswa
+        SET nama_mahasiswa = #{namaMahasiswa},
+            kelas = #{kelas},
+            tanggal_absen = #{tanggalAbsen},
+            status_kehadiran = #{statusKehadiran}
+        WHERE id_mahasiswa = #{idMahasiswa}
+    </update>
+
+    <delete id="hapusAbsensi" parameterType="int">
+        DELETE FROM absensi_mahasiswa WHERE id_mahasiswa = #{idMahasiswa}
+    </delete>
+</mapper>
+
+
